@@ -48,7 +48,7 @@
     <section id="mac" hidden>
       <p class="ok">This is a Mac.</p>
       <a class="btn" id="mac-btn" href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Setup.dmg">Download for Mac</a>
-      <p class="small muted">For Macs with an Apple chip (M1, M2, M3, M4 – almost every Mac from 2020 on).
+      <p class="small muted">The download starts by itself. For Macs with an Apple chip (M1, M2, M3, M4 – almost every Mac from 2020 on).
         Older Mac with an Intel chip? <a href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Mac-Intel.dmg">Download for Intel Mac</a>.
         (Not sure? Apple menu  → <strong>About This Mac</strong>: “Chip Apple …” or “Processor … Intel”.)</p>
       <p class="small" id="mac-intel-hint" hidden><strong>This Mac looks like an Intel Mac</strong> – use the Intel link above.</p>
@@ -95,8 +95,13 @@
       var gl = document.createElement("canvas").getContext("webgl");
       var ext = gl && gl.getExtension("WEBGL_debug_renderer_info");
       var gpu = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : "";
-      if (/Intel|AMD|Radeon/i.test(gpu) && !/Apple/i.test(gpu)) show("mac-intel-hint");
-    } catch (e) { /* no hint */ }
+      var intel = /Intel|AMD|Radeon/i.test(gpu) && !/Apple/i.test(gpu);
+    } catch (e) { intel = false; }
+    if (intel) {
+      show("mac-intel-hint");          // an older Intel Mac: let the person choose the Intel file
+    } else {
+      setTimeout(function () { window.location.href = document.getElementById("mac-btn").href; }, 1200);
+    }
   } else if (isPhone) {
     show("phone");
   } else {
