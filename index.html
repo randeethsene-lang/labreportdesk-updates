@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download Lab Report Desk</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --ink:#17324d; --muted:#5b6b7b; --line:#dbe3ea; --bg:#f4f7fa; --card:#fff; --blue:#1f6fb2; --blue-ink:#fff; --ok:#1d7a46; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6edf3; --muted:#9fb0c0; --line:#2c3a48; --bg:#0f1720; --card:#16212c; --blue:#4a9be0; --blue-ink:#08121b; --ok:#5fcf8f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { max-width:620px; margin:0 auto; padding:32px 16px 48px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  .muted { color:var(--muted); }
+  .btn { display:block; text-align:center; text-decoration:none; background:var(--blue); color:var(--blue-ink); font-weight:700;
+         font-size:19px; padding:16px 18px; border-radius:12px; margin:18px 0 8px; }
+  .small { font-size:14px; }
+  ol { padding-left:22px; } li { margin:6px 0; }
+  .other { border-top:1px solid var(--line); margin-top:22px; padding-top:14px; font-size:14px; }
+  .other a { color:var(--blue); }
+  [hidden] { display:none !important; }
+  .ok { color:var(--ok); font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>Lab Report Desk</h1>
+    <p class="muted" id="intro">Choose your computer below.</p>
+
+    <!-- Windows -->
+    <section id="win" hidden>
+      <p class="ok">This is a Windows computer.</p>
+      <a class="btn" id="win-btn" href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Setup.exe">Download for Windows</a>
+      <p class="small muted" id="win-auto">The download starts by itself. If not, click the button.</p>
+      <ol class="small">
+        <li>Open <strong>LabReportDesk-Setup.exe</strong> (in Downloads).</li>
+        <li>If Windows shows <em>“Windows protected your PC”</em>: click <strong>More info</strong> → <strong>Run anyway</strong>.</li>
+        <li>Click <strong>Install</strong>. Lab Report Desk opens when it's done.</li>
+      </ol>
+    </section>
+
+    <!-- Mac -->
+    <section id="mac" hidden>
+      <p class="ok">This is a Mac.</p>
+      <a class="btn" id="mac-btn" href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Setup.dmg">Download for Mac</a>
+      <p class="small muted">For Macs with an Apple chip (M1, M2, M3, M4 – almost every Mac from 2020 on).
+        Older Mac with an Intel chip? <a href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Mac-Intel.dmg">Download for Intel Mac</a>.
+        (Not sure? Apple menu  → <strong>About This Mac</strong>: “Chip Apple …” or “Processor … Intel”.)</p>
+      <p class="small" id="mac-intel-hint" hidden><strong>This Mac looks like an Intel Mac</strong> – use the Intel link above.</p>
+      <ol class="small">
+        <li>Open <strong>LabReportDesk-Setup.dmg</strong> (in Downloads).</li>
+        <li>Drag <strong>Lab Report Desk</strong> onto the <strong>Applications</strong> folder.</li>
+        <li><strong>The first time only:</strong> open Applications, <strong>right-click</strong> (or Control-click) Lab Report Desk → <strong>Open</strong> → <strong>Open</strong>.
+          <span class="muted">(Needed because the app isn't registered with Apple. If the Mac only shows “Done” or “Move to Bin”: System Settings → Privacy &amp; Security → scroll down → <strong>Open Anyway</strong>.)</span></li>
+        <li>After that, open it normally. It runs in the <strong>menu bar</strong> (top right).</li>
+      </ol>
+    </section>
+
+    <!-- phone / tablet / other -->
+    <section id="phone" hidden>
+      <p><strong>Open this page on the lab's computer</strong> (Windows or Mac). Lab Report Desk can't be installed on a phone or tablet.</p>
+    </section>
+
+    <div class="other" id="other">
+      Other files:
+      <a href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Setup.exe">Windows</a> ·
+      <a href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Setup.dmg">Mac (Apple chip)</a> ·
+      <a href="https://github.com/randeethsene-lang/labreportdesk-updates/releases/latest/download/LabReportDesk-Mac-Intel.dmg">Mac (Intel)</a>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  var ua = navigator.userAgent || "";
+  var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+  var touch = navigator.maxTouchPoints || 0;
+  var isPhone = /iPhone|iPad|iPod|Android/i.test(ua) || (/Mac/i.test(plat) && touch > 1);   // iPad says "Mac" too
+  var isMac = !isPhone && /Mac/i.test(plat + " " + ua);
+  var isWin = !isPhone && /Win/i.test(plat + " " + ua);
+  var show = function (id) { document.getElementById(id).hidden = false; };
+  var intro = document.getElementById("intro");
+  if (isWin) {
+    intro.textContent = "Your download is ready.";
+    show("win");
+    setTimeout(function () { window.location.href = document.getElementById("win-btn").href; }, 1200);
+  } else if (isMac) {
+    intro.textContent = "Your download is ready.";
+    show("mac");
+    try {   // a hint only: Intel Macs usually name an Intel graphics chip; Apple chips say "Apple"
+      var gl = document.createElement("canvas").getContext("webgl");
+      var ext = gl && gl.getExtension("WEBGL_debug_renderer_info");
+      var gpu = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : "";
+      if (/Intel|AMD|Radeon/i.test(gpu) && !/Apple/i.test(gpu)) show("mac-intel-hint");
+    } catch (e) { /* no hint */ }
+  } else if (isPhone) {
+    show("phone");
+  } else {
+    intro.textContent = "Choose your computer:";
+  }
+})();
+</script>
+</body>
+</html>
